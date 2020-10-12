@@ -33,15 +33,15 @@ class LoginPage extends Component {
         return (
             <div className="LoginPage">
                 <header className="header-footer">Log In</header>
-                <form className="form-horizontal" onSubmit={this.handleSubmit} >
+                <form className="form-horizontal" onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <div className="col-sm-12">
-                            <input type="email" className="form-control" placeholder="Email" value={this.state.email} name="email" onChange={this.handleChange} />
+                            <input type="email" className="form-control" placeholder="Email" value={this.state.email} name="email" onChange={this.handleChange} required />
                         </div>
                     </div>
                     <div className="form-group">
                         <div className="col-sm-12">
-                            <input type="password" className="form-control" placeholder="Password" value={this.state.pw} name="pw" onChange={this.handleChange} />
+                            <input type="password" className="form-control" placeholder="Password" value={this.state.pw} name="pw" onChange={this.handleChange} required />
                         </div>
                     </div>
                     <div className="form-group">
