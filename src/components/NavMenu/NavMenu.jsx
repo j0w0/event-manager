@@ -5,10 +5,10 @@ import './NavMenu.css';
 const NavMenu = (props) => {
     let menu = props.user ?
     <ul className="navbar-nav ml-auto">
+        <span className='navbar-text'>Welcome, {props.user.name}</span>
         <li className="nav-item">
             <Link to='' onClick={props.handleLogout} className="nav-link">Log Out</Link>
         </li>
-        <span className=''>Welcome, {props.user.name}</span>
     </ul>
     :
     <ul className="navbar-nav ml-auto">
