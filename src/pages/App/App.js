@@ -35,7 +35,9 @@ class App extends Component {
     }
 
     /*--- Lifecycle Methods ---*/
-    async componentDidMount() { }
+    async componentDidMount() {
+        // make any third-party api calls here
+    }
 
     render() {
         return (
