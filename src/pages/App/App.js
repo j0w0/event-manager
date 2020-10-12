@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import HomePage from '../HomePage/HomePage';
 import SignupPage from '../SignupPage/SignupPage';
 import LoginPage from '../LoginPage/LoginPage';
+import ProtectedPage from '../ProtectedPage/ProtectedPage';
 import userService from '../../utils/userService';
 
 class App extends Component {
@@ -60,6 +61,12 @@ class App extends Component {
                             history={history}
                         />
                     }/>
+
+                    <Route exact path='/protected' render={({ history }) => 
+                        userService.getUser() ?
+                            <ProtectedPage /> :
+                            <Redirect to='/login' />
+                    }/> 
 
                 </Switch>
             </div>
