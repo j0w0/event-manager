@@ -3,18 +3,20 @@ import { Link } from 'react-router-dom';
 import './NavMenu.css';
 
 const NavMenu = (props) => {
-    let nav = props.user ?
-    <ul>
-        <li><Link to='' onClick={props.handleLogout} className=''>LOG OUT</Link></li>
-        <span className=''>WELCOME, {props.user.name}</span>
+    let menu = props.user ?
+    <ul className="navbar-nav ml-auto">
+        <li className="nav-item">
+            <Link to='' onClick={props.handleLogout} className="nav-link">Log Out</Link>
+        </li>
+        <span className=''>Welcome, {props.user.name}</span>
     </ul>
     :
-    <ul>
-        <li><Link to='/login' className=''>LOG IN</Link></li>
-        <li><Link to='/signup' className=''>SIGN UP</Link></li>
+    <ul className="navbar-nav ml-auto">
+        <li className="nav-item"><Link to='/login' className='nav-link'>Log In</Link></li>
+        <li className="nav-item"><Link to='/signup' className='nav-link'>Sign Up</Link></li>
     </ul>;
 
-    return nav;
+    return menu;
 };
 
 export default NavMenu;

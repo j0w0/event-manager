@@ -4,7 +4,11 @@ import './Footer.css';
 const Footer = (props) => {
     return (
         <footer>
-            j0w0
+            <div class="bg-light">
+                <div class="container-fluid py-3">
+                    j0w0
+                </div>
+            </div>
         </footer>
     );
 };
