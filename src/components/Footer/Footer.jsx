@@ -4,9 +4,9 @@ import './Footer.css';
 const Footer = (props) => {
     return (
         <footer>
-            <div class="bg-light">
-                <div class="container-fluid py-3">
-                    j0w0
+            <div className="bg-light">
+                <div className="container-fluid py-3">
+                    <a href="http://www.j0w0.com" target="_blank" rel="noopener noreferrer">j0w0</a>
                 </div>
             </div>
         </footer>
