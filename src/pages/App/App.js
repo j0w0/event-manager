@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import Header from '../../components/Header/Header';
+import Footer from '../../components/Footer/Footer';
 import HomePage from '../HomePage/HomePage';
 import SignupPage from '../SignupPage/SignupPage';
 import LoginPage from '../LoginPage/LoginPage';
@@ -37,39 +39,40 @@ class App extends Component {
 
     render() {
         return (
-            <div>
-                <header className='header-footer'>MERN with Auth Starter</header>
-                <Switch>
+            <>
+                <Header
+                    user={this.state.user}
+                    handleLogout={this.handleLogout}
+                />
+                <main>
+                    <Switch>
+                        <Route exact path='/' render={() =>
+                            <HomePage user={this.state.user} />
+                        }/>
 
-                    <Route exact path='/' render={() =>
-                        <HomePage
-                            user={this.state.user}
-                            handleLogout={this.handleLogout}
-                        />
-                    }/>
+                        <Route exact path='/signup' render={({ history }) => 
+                            <SignupPage
+                                history={history}
+                                handleSignupOrLogin={this.handleSignupOrLogin}
+                            />
+                        }/>
 
-                    <Route exact path='/signup' render={({ history }) => 
-                        <SignupPage
-                            history={history}
-                            handleSignupOrLogin={this.handleSignupOrLogin}
-                        />
-                    }/>
+                        <Route exact path='/login' render={({ history }) => 
+                            <LoginPage
+                                handleSignupOrLogin={this.handleSignupOrLogin}
+                                history={history}
+                            />
+                        }/>
 
-                    <Route exact path='/login' render={({ history }) => 
-                        <LoginPage
-                            handleSignupOrLogin={this.handleSignupOrLogin}
-                            history={history}
-                        />
-                    }/>
-
-                    <Route exact path='/protected' render={({ history }) => 
-                        userService.getUser() ?
-                            <ProtectedPage /> :
-                            <Redirect to='/login' />
-                    }/> 
-
-                </Switch>
-            </div>
+                        <Route exact path='/protected' render={({ history }) => 
+                            userService.getUser() ?
+                                <ProtectedPage /> :
+                                <Redirect to='/login' />
+                        }/>
+                    </Switch>
+                </main>
+                <Footer />
+            </>
         );
     }
 }
