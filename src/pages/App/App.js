@@ -9,6 +9,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import ProtectedPage from '../ProtectedPage/ProtectedPage';
 import userService from '../../utils/userService';
 import * as postAPI from '../../services/posts-api';
+// import Page404 from '../404/404';
 
 class App extends Component {
     constructor() {
@@ -77,6 +78,11 @@ class App extends Component {
                             userService.getUser() ?
                                 <ProtectedPage /> :
                                 <Redirect to='/login' />
+                        }/>
+
+                        <Route path='/' render={() =>
+                            // page not found, redirect to root
+                            <Redirect to='/' />
                         }/>
                     </Switch>
                 </main>
