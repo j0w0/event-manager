@@ -8,6 +8,7 @@ import SignupPage from '../SignupPage/SignupPage';
 import LoginPage from '../LoginPage/LoginPage';
 import ProtectedPage from '../ProtectedPage/ProtectedPage';
 import userService from '../../utils/userService';
+import * as postAPI from '../../services/posts-api';
 
 class App extends Component {
     constructor() {
@@ -21,6 +22,7 @@ class App extends Component {
     getInitialState() {
         return {
             // key: value,
+            posts: []
         };
     }
 
@@ -36,7 +38,9 @@ class App extends Component {
 
     /*--- Lifecycle Methods ---*/
     async componentDidMount() {
-        // make any third-party api calls here
+        // make api calls here
+        const posts = await postAPI.getAll();
+        this.setState({posts});
     }
 
     render() {
