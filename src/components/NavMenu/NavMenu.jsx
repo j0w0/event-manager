@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './NavMenu.css';
 
 const NavMenu = (props) => {
@@ -7,13 +7,13 @@ const NavMenu = (props) => {
     <ul className="navbar-nav ml-auto">
         <span className='navbar-text'>Welcome, {props.user.name}</span>
         <li className="nav-item">
-            <Link to='' onClick={props.handleLogout} className="nav-link">Log Out</Link>
+            <NavLink to='' onClick={props.handleLogout} className="nav-link">Log Out</NavLink>
         </li>
     </ul>
     :
     <ul className="navbar-nav ml-auto">
-        <li className="nav-item"><Link to='/login' className='nav-link'>Log In</Link></li>
-        <li className="nav-item"><Link to='/signup' className='nav-link'>Sign Up</Link></li>
+        <li className="nav-item"><NavLink to='/login' className='nav-link'>Log In</NavLink></li>
+        <li className="nav-item"><NavLink to='/signup' className='nav-link'>Sign Up</NavLink></li>
     </ul>;
 
     return menu;
