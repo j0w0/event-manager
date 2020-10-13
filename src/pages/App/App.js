@@ -53,7 +53,10 @@ class App extends Component {
                 <main>
                     <Switch>
                         <Route exact path='/' render={() =>
-                            <HomePage user={this.state.user} />
+                            <HomePage
+                                user={this.state.user}
+                                posts={this.state.posts}
+                            />
                         }/>
 
                         <Route exact path='/signup' render={({ history }) => 
