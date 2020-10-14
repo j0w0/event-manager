@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import './NavMenu.css';
+import './NavBar.css';
 
 const NavMenu = (props) => {
     let menu = props.user ?

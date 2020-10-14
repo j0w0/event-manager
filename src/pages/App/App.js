@@ -7,6 +7,7 @@ import HomePage from '../HomePage/HomePage';
 import CreditsPage from '../CreditsPage/CreditsPage';
 import EventsPage from '../EventsPage/EventsPage';
 import EventPage from '../EventPage/EventPage';
+import MyEventsPage from '../MyEventsPage/MyEventsPage';
 import SignupPage from '../SignupPage/SignupPage';
 import LoginPage from '../LoginPage/LoginPage';
 import AdminPage from '../AdminPage/AdminPage';
@@ -74,6 +75,10 @@ class App extends Component {
 
                         <Route exact path='/event' render={({ location }) => 
                             <EventPage location={location} />
+                        }/>
+
+                        <Route exact path='/my-events' render={({ history }) => 
+                            <MyEventsPage />
                         }/>
 
                         <Route exact path='/admin' render={({ history }) => 
