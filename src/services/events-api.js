@@ -1,7 +1,11 @@
-const BASE_URL = '/api/posts';
+const BASE_URL = '/api/events';
 
 export function getAll() {
     return fetch(BASE_URL, {}).then(res => res.json());
+}
+
+export function getOne(id) {
+    return fetch(`${BASE_URL}/${id}`, {}).then(res => res.json());
 }
 
 export function create(post) {

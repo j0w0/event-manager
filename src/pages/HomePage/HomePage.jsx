@@ -1,21 +1,26 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './HomePage.css';
 
 const HomePage = (props) => {
 
-    let posts;
+    let events;
     
-    if (props.posts.length !== 0) {
-        posts = props.posts.map((post, idx) => {
+    if (props.events.length !== 0) {
+        events = props.events.map((event, idx) => {
             return (
                 <article key={idx}>
-                    <h4>{post.name}</h4>
-                    <p>{post.content}</p>
+                    <h4>{event.name}</h4>
+                    <p>{event.description}</p>
+                    <Link to={{
+                        pathname: '/event',
+                        state: { event: event }
+                    }}>Read More</Link>
                 </article>
             );
-        })
+        });
     } else {
-        posts = <p>No posts.</p>
+        events = <p>No events.</p>
     }
 
     return (
@@ -26,8 +31,8 @@ const HomePage = (props) => {
 
             <hr />
 
-            <h2>Posts</h2>
-            { posts }
+            <h2>Events</h2>
+            { events }
 
         </div>
     );

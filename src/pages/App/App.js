@@ -4,11 +4,14 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import HomePage from '../HomePage/HomePage';
+import CreditsPage from '../CreditsPage/CreditsPage';
+import EventsPage from '../EventsPage/EventsPage';
+import EventPage from '../EventPage/EventPage';
 import SignupPage from '../SignupPage/SignupPage';
 import LoginPage from '../LoginPage/LoginPage';
-import ProtectedPage from '../ProtectedPage/ProtectedPage';
+import AdminPage from '../AdminPage/AdminPage';
 import userService from '../../utils/userService';
-import * as postAPI from '../../services/posts-api';
+import * as eventAPI from '../../services/events-api';
 // import Page404 from '../404/404';
 
 class App extends Component {
@@ -22,8 +25,7 @@ class App extends Component {
 
     getInitialState() {
         return {
-            // key: value,
-            posts: []
+            events: []
         };
     }
 
@@ -40,8 +42,8 @@ class App extends Component {
     /*--- Lifecycle Methods ---*/
     async componentDidMount() {
         // make api calls here
-        const posts = await postAPI.getAll();
-        this.setState({posts});
+        const events = await eventAPI.getAll();
+        this.setState({events});
     }
 
     render() {
@@ -56,8 +58,28 @@ class App extends Component {
                         <Route exact path='/' render={() =>
                             <HomePage
                                 user={this.state.user}
-                                posts={this.state.posts}
+                                events={this.state.events}
                             />
+                        }/>
+
+                        <Route exact path='/credits' render={({ history }) =>
+                            userService.getUser() ?
+                                <CreditsPage /> :
+                                <Redirect to ='/login' />
+                        }/>
+
+                        <Route exact path='/events' render={({ history }) => 
+                            <EventsPage />
+                        }/>
+
+                        <Route exact path='/event' render={({ location }) => 
+                            <EventPage location={location} />
+                        }/>
+
+                        <Route exact path='/admin' render={({ history }) => 
+                            userService.getUser() ?
+                                <AdminPage /> :
+                                <Redirect to='/login' />
                         }/>
 
                         <Route exact path='/signup' render={({ history }) => 
@@ -72,12 +94,6 @@ class App extends Component {
                                 handleSignupOrLogin={this.handleSignupOrLogin}
                                 history={history}
                             />
-                        }/>
-
-                        <Route exact path='/protected' render={({ history }) => 
-                            userService.getUser() ?
-                                <ProtectedPage /> :
-                                <Redirect to='/login' />
                         }/>
 
                         <Route path='/' render={() =>
