@@ -13,8 +13,8 @@ const HomePage = (props) => {
                     <h4>{event.name}</h4>
                     <p>{event.description}</p>
                     <Link to={{
-                        pathname: '/event',
-                        state: { event: event }
+                        pathname: `/event/${event._id}`,
+                        state: { event }
                     }}>Read More</Link>
                 </article>
             );

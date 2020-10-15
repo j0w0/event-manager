@@ -56,53 +56,58 @@ class App extends Component {
                 />
                 <main>
                     <Switch>
-                        <Route exact path='/' render={() =>
+                        <Route exact path='/' render={({ ...props }) =>
                             <HomePage
+                                {...props}
                                 user={this.state.user}
                                 events={this.state.events}
                             />
                         }/>
 
-                        <Route exact path='/credits' render={({ history }) =>
+                        <Route exact path='/credits' render={({ ...props }) =>
                             userService.getUser() ?
-                                <CreditsPage /> :
+                                <CreditsPage {...props} /> :
                                 <Redirect to ='/login' />
                         }/>
 
-                        <Route exact path='/events' render={({ history }) => 
-                            <EventsPage />
+                        <Route exact path='/events' render={({ ...props }) => 
+                            <EventsPage {...props} />
                         }/>
 
-                        <Route exact path='/event' render={({ location }) => 
-                            <EventPage location={location} />
+                        <Route exact path='/event/:id' render={({ ...props }) =>
+                            <EventPage
+                                {...props}
+                                events={this.state.events}
+                            />
                         }/>
 
-                        <Route exact path='/my-events' render={({ history }) => 
-                            <MyEventsPage />
-                        }/>
-
-                        <Route exact path='/admin' render={({ history }) => 
+                        <Route exact path='/my-events' render={({ ...props }) =>
                             userService.getUser() ?
-                                <AdminPage /> :
+                                <MyEventsPage {...props} /> :
                                 <Redirect to='/login' />
                         }/>
 
-                        <Route exact path='/signup' render={({ history }) => 
+                        <Route exact path='/admin' render={({ ...props }) => 
+                            userService.getUser() ?
+                                <AdminPage {...props} /> :
+                                <Redirect to='/login' />
+                        }/>
+
+                        <Route exact path='/signup' render={({ ...props }) => 
                             <SignupPage
-                                history={history}
+                                {...props}
                                 handleSignupOrLogin={this.handleSignupOrLogin}
                             />
                         }/>
 
-                        <Route exact path='/login' render={({ history }) => 
+                        <Route exact path='/login' render={({ ...props }) => 
                             <LoginPage
+                                {...props}
                                 handleSignupOrLogin={this.handleSignupOrLogin}
-                                history={history}
                             />
                         }/>
 
-                        <Route path='/' render={() =>
-                            // page not found, redirect to root
+                        <Route path='/' render={({ ...props }) =>
                             <Redirect to='/' />
                         }/>
                     </Switch>
