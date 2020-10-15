@@ -7,12 +7,12 @@ import HomePage from '../HomePage/HomePage';
 import CreditsPage from '../CreditsPage/CreditsPage';
 import EventsPage from '../EventsPage/EventsPage';
 import EventPage from '../EventPage/EventPage';
+import EventEditPage from '../EventEditPage/EventEditPage';
 import MyEventsPage from '../MyEventsPage/MyEventsPage';
 import SignupPage from '../SignupPage/SignupPage';
 import LoginPage from '../LoginPage/LoginPage';
 import AdminPage from '../AdminPage/AdminPage';
 import userService from '../../utils/userService';
-// import Page404 from '../404/404';
 
 class App extends Component {
     constructor() {
@@ -76,8 +76,15 @@ class App extends Component {
                             />
                         }/>
 
-                        <Route exact path='/event/:id' render={props => 
+                        <Route exact path='/events/:id' render={props => 
                             <EventPage
+                                {...props}
+                                user={this.state.user}
+                            />
+                        }/>
+
+                        <Route exact path='/events/:id/edit' render={props => 
+                            <EventEditPage
                                 {...props}
                                 user={this.state.user}
                             />

@@ -1,14 +1,14 @@
 const BASE_URL = '/api/events';
 
-export function getAll() {
+export async function getAll() {
     return fetch(BASE_URL, {}).then(res => res.json());
 }
 
-export function getOne(id) {
+export async function getOne(id) {
     return fetch(`${BASE_URL}/${id}`).then(res => res.json());
 }
 
-export function create(post) {
+export async function create(post) {
     return fetch(BASE_URL, {
         method: 'POST',
         headers: {'content-type': 'application/json'},
@@ -16,7 +16,7 @@ export function create(post) {
     }).then(res => res.json());
 }
 
-export function update(post) {
+export async function update(post) {
     return fetch(`${BASE_URL}/${post._id}`, {
         method: 'PUT',
         headers: {'content-type': 'application/json'},
@@ -24,7 +24,7 @@ export function update(post) {
     }).then(res => res.json());
 }
 
-export function deleteOne(id) {
+export async function deleteOne(id) {
     return fetch(`${BASE_URL}/${id}`, {
         method: 'DELETE'
     }).then(res => res.json());

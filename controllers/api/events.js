@@ -14,7 +14,7 @@ async function index(req, res) {
         if (!events) return res.status(401).json({err: 'No events'});
         res.status(200).json(events);
     } catch (err) {
-        res.status(400).json(err);
+        res.status(400).json({err});
     }
 }
 
@@ -23,7 +23,7 @@ async function create(req, res) {
         const event = await Event.create(req.body);
         res.status(201).json(event);
     } catch(err) {
-        res.status(400).json(err);
+        res.status(400).json({err});
     }
 }
 
@@ -32,7 +32,7 @@ async function show(req, res) {
         const event = await Event.findById(req.params.id);
         res.status(200).json(event);
     } catch(err) {
-        res.status(400).json(err);
+        res.status(400).json({err});
     }
 }
 
@@ -45,7 +45,7 @@ async function update(req, res) {
         );
         res.status(200).json(updatedEvent);
     } catch(err) {
-        res.status(400).json(err);
+        res.status(400).json({err});
     }
 }
 
@@ -54,6 +54,6 @@ async function deleteOne(req, res) {
         const deletedEvent = await Event.findByIdAndRemove(req.params.id);
         res.status(200).json(deletedEvent);
     } catch(err) {
-        res.status(400).json(err);
+        res.status(400).json({err});
     }
 }

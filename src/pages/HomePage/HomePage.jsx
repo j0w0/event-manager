@@ -26,7 +26,7 @@ function HomePage(props) {
                 <article key={idx}>
                     <h4>{event.name}</h4>
                     <p>{event.description}</p>
-                    <Link to={{ pathname: `/event/${event._id}` }}>Read More</Link>
+                    <Link to={{ pathname: `/events/${event._id}` }}>Read More</Link>
                 </article>
             );
         });

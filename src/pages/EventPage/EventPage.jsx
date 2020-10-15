@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import './EventPage.css';
 import * as eventAPI from '../../services/events-api';
+import { Redirect } from 'react-router-dom';
 
 function EventPage(props) {
 
@@ -16,6 +17,10 @@ function EventPage(props) {
         }
         fetchData();
     }, [ props.match.params.id ]);
+
+    if(event.err) {
+        return <Redirect to='/' />
+    }
 
     return (
         <div className='EventPage container py-3'>
