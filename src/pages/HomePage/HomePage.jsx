@@ -1,26 +1,37 @@
 import React from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './HomePage.css';
+import * as eventAPI from '../../services/events-api';
 
-const HomePage = (props) => {
+function HomePage(props) {
 
-    let events;
+    const [events, setEvents] = useState({
+        events: null
+    });
+
+    useEffect(() => {
+        async function fetchData() {
+            const events = await eventAPI.getAll();
+            setEvents(events);
+        }
+        fetchData();
+    }, []);
+
+    let eventsList;
     
-    if (props.events.length !== 0) {
-        events = props.events.map((event, idx) => {
+    if (events.length !== 0) {
+        eventsList = Array.from(events).map((event, idx) => {
             return (
                 <article key={idx}>
                     <h4>{event.name}</h4>
                     <p>{event.description}</p>
-                    <Link to={{
-                        pathname: `/event/${event._id}`,
-                        state: { event }
-                    }}>Read More</Link>
+                    <Link to={{ pathname: `/event/${event._id}` }}>Read More</Link>
                 </article>
             );
         });
     } else {
-        events = <p>No events.</p>
+        eventsList = <p>No events.</p>
     }
 
     return (
@@ -32,7 +43,7 @@ const HomePage = (props) => {
             <hr />
 
             <h2>Events</h2>
-            { events }
+            { eventsList }
 
         </div>
     );

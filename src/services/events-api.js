@@ -5,7 +5,7 @@ export function getAll() {
 }
 
 export function getOne(id) {
-    return fetch(`${BASE_URL}/${id}`, {_id: id}).then(res => res.json());
+    return fetch(`${BASE_URL}/${id}`).then(res => res.json());
 }
 
 export function create(post) {

@@ -12,7 +12,6 @@ import SignupPage from '../SignupPage/SignupPage';
 import LoginPage from '../LoginPage/LoginPage';
 import AdminPage from '../AdminPage/AdminPage';
 import userService from '../../utils/userService';
-import * as eventAPI from '../../services/events-api';
 // import Page404 from '../404/404';
 
 class App extends Component {
@@ -26,7 +25,7 @@ class App extends Component {
 
     getInitialState() {
         return {
-            events: []
+            //events: []
         };
     }
 
@@ -43,8 +42,6 @@ class App extends Component {
     /*--- Lifecycle Methods ---*/
     async componentDidMount() {
         // make api calls here
-        const events = await eventAPI.getAll();
-        this.setState({events});
     }
 
     render() {
@@ -56,58 +53,72 @@ class App extends Component {
                 />
                 <main>
                     <Switch>
-                        <Route exact path='/' render={({ ...props }) =>
+                        <Route exact path='/' render={props =>
                             <HomePage
                                 {...props}
                                 user={this.state.user}
-                                events={this.state.events}
                             />
                         }/>
 
-                        <Route exact path='/credits' render={({ ...props }) =>
+                        <Route exact path='/credits' render={props =>
                             userService.getUser() ?
-                                <CreditsPage {...props} /> :
+                                <CreditsPage
+                                    {...props}
+                                    user={this.state.user}
+                                /> :
                                 <Redirect to ='/login' />
                         }/>
 
-                        <Route exact path='/events' render={({ ...props }) => 
-                            <EventsPage {...props} />
+                        <Route exact path='/events' render={props => 
+                            <EventsPage
+                                {...props}
+                                user={this.state.user}
+                            />
                         }/>
 
-                        <Route exact path='/event/:id' render={({ ...props }) =>
+                        <Route exact path='/event/:id' render={props => 
                             <EventPage
                                 {...props}
-                                events={this.state.events}
+                                user={this.state.user}
                             />
                         }/>
 
-                        <Route exact path='/my-events' render={({ ...props }) =>
+                        <Route exact path='/my-events' render={props =>
                             userService.getUser() ?
-                                <MyEventsPage {...props} /> :
+                                <MyEventsPage
+                                    {...props}
+                                    user={this.state.user}
+                                /> :
                                 <Redirect to='/login' />
                         }/>
 
-                        <Route exact path='/admin' render={({ ...props }) => 
+                        <Route exact path='/admin' render={props => 
                             userService.getUser() ?
-                                <AdminPage {...props} /> :
+                                <AdminPage
+                                    {...props}
+                                    user={this.state.user}
+                                /> :
                                 <Redirect to='/login' />
                         }/>
 
-                        <Route exact path='/signup' render={({ ...props }) => 
+                        <Route exact path='/signup' render={props => 
                             <SignupPage
                                 {...props}
+                                user={this.state.user}
                                 handleSignupOrLogin={this.handleSignupOrLogin}
+                                
                             />
                         }/>
 
-                        <Route exact path='/login' render={({ ...props }) => 
+                        <Route exact path='/login' render={props => 
                             <LoginPage
                                 {...props}
+                                user={this.state.user}
                                 handleSignupOrLogin={this.handleSignupOrLogin}
                             />
                         }/>
 
-                        <Route path='/' render={({ ...props }) =>
+                        <Route path='/' render={props =>
                             <Redirect to='/' />
                         }/>
                     </Switch>
