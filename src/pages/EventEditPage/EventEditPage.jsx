@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect } from 'react-router-dom';
 import './EventEditPage.css';
 import EventEditForm from '../../components/EventEditForm/EventEditForm';
 import * as eventAPI from '../../services/events-api';
@@ -19,7 +18,7 @@ function EventEditPage(props) {
     }, [ props.match.params.id ]);
 
     if(event.err) {
-        return <Redirect to='/' />
+        props.history.replace('/');
     }
 
     const handleInputChange = (e) => setEvent({
@@ -31,6 +30,7 @@ function EventEditPage(props) {
         e.preventDefault();
         const updatedEvent = await eventAPI.update(event);
         setEvent(updatedEvent);
+        props.history.push(`/events/${event._id}`);
     }
 
     return (

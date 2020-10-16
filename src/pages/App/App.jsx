@@ -6,6 +6,7 @@ import Footer from '../../components/Footer/Footer';
 import HomePage from '../HomePage/HomePage';
 import CreditsPage from '../CreditsPage/CreditsPage';
 import EventsPage from '../EventsPage/EventsPage';
+import EventAddPage from '../EventAddPage/EventAddPage';
 import EventPage from '../EventPage/EventPage';
 import EventEditPage from '../EventEditPage/EventEditPage';
 import MyEventsPage from '../MyEventsPage/MyEventsPage';
@@ -74,6 +75,15 @@ class App extends Component {
                                 {...props}
                                 user={this.state.user}
                             />
+                        }/>
+
+                        <Route exact path='/events/new' render={props =>
+                            this.state.user ?
+                                <EventAddPage
+                                    {...props}
+                                    user={this.state.user}
+                                /> :
+                                <Redirect to='/login' />
                         }/>
 
                         <Route exact path='/events/:id' render={props => 

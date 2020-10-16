@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect } from 'react-router-dom';
 import './EventPage.css';
 import * as eventAPI from '../../services/events-api';
 
@@ -18,7 +17,7 @@ function EventPage(props) {
     }, [ props.match.params.id ]);
 
     if(event.err) {
-        return <Redirect to='/' />
+        props.history.replace('/');
     }
 
     return (
