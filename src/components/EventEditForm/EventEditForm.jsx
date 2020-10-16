@@ -25,6 +25,13 @@ function EventEditForm(props) {
                 />
             </div>
 
+
+
+
+
+
+            
+
             <button type="submit" className="btn btn-primary">Update</button>
 
         </form>

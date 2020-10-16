@@ -13,9 +13,11 @@ function EventEditPage(props) {
         async function fetchData() {
             const results = await eventAPI.getOne(props.match.params.id);
             setEvent(results);
+
+            props.user._id !== results.user && props.history.replace('/');
         }
         fetchData();
-    }, [ props.match.params.id ]);
+    }, [ props.match.params.id, props.history, props.user._id ]);
 
     if(event.err) {
         props.history.replace('/');
@@ -36,7 +38,12 @@ function EventEditPage(props) {
     return (
         <div className='EventEditPage container py-3'>
             <h1>Edit {event.name} Event</h1>
-            <EventEditForm {...props} event={event} handleInputChange={handleInputChange} handleSubmit={handleSubmit} />
+            <EventEditForm
+                {...props}
+                event={event}
+                handleInputChange={handleInputChange}
+                handleSubmit={handleSubmit}
+            />
         </div>
     );
 }

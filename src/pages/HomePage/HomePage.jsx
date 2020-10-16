@@ -18,9 +18,9 @@ function HomePage(props) {
         fetchData();
     }, []);
 
-    let eventsList;
+    let eventsList = "Loading...";
     
-    if (events.length !== 0) {
+    if (events.length > 0) {
         eventsList = Array.from(events).map((event, idx) => {
             return (
                 <article key={idx}>
