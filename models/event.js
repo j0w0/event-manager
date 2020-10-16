@@ -34,6 +34,10 @@ const eventSchema = new Schema({
     },
     maxCapacity: {
         type: Number
+    },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     }
 }, {
     timestamps: true

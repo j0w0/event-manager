@@ -1,8 +1,7 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import './EventPage.css';
 import * as eventAPI from '../../services/events-api';
-import { Redirect } from 'react-router-dom';
 
 function EventPage(props) {
 

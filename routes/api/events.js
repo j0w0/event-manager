@@ -8,7 +8,7 @@ router.get('/', eventsCtrl.index); // all events
 router.get('/:id', eventsCtrl.show); // single event
 
 /*---------- Protected Routes ----------*/
-router.post('/', eventsCtrl.create); // create event
+router.post('/', checkAuth, eventsCtrl.create); // create event
 router.put('/:id', checkAuth, eventsCtrl.update); // update event
 router.delete('/:id', checkAuth, eventsCtrl.delete); // delete event
 

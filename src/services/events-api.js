@@ -1,3 +1,5 @@
+import tokenService from '../utils/tokenService';
+
 const BASE_URL = '/api/events';
 
 export async function getAll() {
@@ -11,7 +13,10 @@ export async function getOne(id) {
 export async function create(post) {
     return fetch(BASE_URL, {
         method: 'POST',
-        headers: {'content-type': 'application/json'},
+        headers: {
+            'content-type': 'application/json',
+            'Authorization': 'Bearer ' + tokenService.getToken()
+        },
         body: JSON.stringify(post)
     }).then(res => res.json());
 }
@@ -19,13 +24,19 @@ export async function create(post) {
 export async function update(post) {
     return fetch(`${BASE_URL}/${post._id}`, {
         method: 'PUT',
-        headers: {'content-type': 'application/json'},
+        headers: {
+            'content-type': 'application/json',
+            'Authorization': 'Bearer ' + tokenService.getToken()
+        },
         body: JSON.stringify(post)
     }).then(res => res.json());
 }
 
 export async function deleteOne(id) {
     return fetch(`${BASE_URL}/${id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+            'Authorization': 'Bearer ' + tokenService.getToken()
+        }
     }).then(res => res.json());
 }

@@ -61,7 +61,7 @@ class App extends Component {
                         }/>
 
                         <Route exact path='/credits' render={props =>
-                            userService.getUser() ?
+                            this.state.user ?
                                 <CreditsPage
                                     {...props}
                                     user={this.state.user}
@@ -83,15 +83,17 @@ class App extends Component {
                             />
                         }/>
 
-                        <Route exact path='/events/:id/edit' render={props => 
-                            <EventEditPage
-                                {...props}
-                                user={this.state.user}
-                            />
+                        <Route exact path='/events/:id/edit' render={props =>
+                            this.state.user ?
+                                <EventEditPage
+                                    {...props}
+                                    user={this.state.user}
+                                /> :
+                                <Redirect to='/login' />
                         }/>
 
                         <Route exact path='/my-events' render={props =>
-                            userService.getUser() ?
+                            this.state.user ?
                                 <MyEventsPage
                                     {...props}
                                     user={this.state.user}
@@ -100,7 +102,7 @@ class App extends Component {
                         }/>
 
                         <Route exact path='/admin' render={props => 
-                            userService.getUser() ?
+                            this.state.user ?
                                 <AdminPage
                                     {...props}
                                     user={this.state.user}

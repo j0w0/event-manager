@@ -18,13 +18,12 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 // api routes
 app.use('/api/users', require('./routes/api/users'));
-app.use('/api/events', require('./routes/api/events'));
 
 // auth middleware
 app.use(require('./config/auth'));
 
 // routes needing auth go here
-// app.use('/api/events', require('./routes/api/events'));
+app.use('/api/events', require('./routes/api/events'));
 
 // catch-all
 app.get('/*', function(req, res) {
