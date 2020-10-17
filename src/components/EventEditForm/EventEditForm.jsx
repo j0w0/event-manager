@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import './EventEditForm.css';
 
 function EventEditForm(props) {
+    const autocompleteField = useRef();
+
+    useEffect(() => {
+        new window.google.maps.places.Autocomplete(
+            autocompleteField.current,
+            { types: ['geocode'] }
+        );
+    }, []);
 
     let sTime = props.event.startTime;
     let eTime = props.event.endTime;
@@ -17,7 +25,7 @@ function EventEditForm(props) {
     }
 
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={props.handleSubmit} autoComplete="off">
 
             <div className="form-group">
                 <label htmlFor="name">Event Name</label>
@@ -80,7 +88,21 @@ function EventEditForm(props) {
             </div>
 
             <div className="form-group">
-                <div id="google-address"></div>
+                <label htmlFor="venueName">Venue Name</label>
+                <input type="text" id="venueName" className="form-control"
+                    name="venueName"
+                    defaultValue={props.event.venueName}
+                    onChange={props.handleInputChange}
+                    required
+                />
+            </div>
+
+            <div className="form-group">
+                <label htmlFor="googleAddress">Address</label>
+                <input type="text" id="googleAddress" className="form-control"
+                    name="googleAddress"
+                    ref={autocompleteField}
+                />
             </div>
 
             <button type="submit" className="btn btn-primary">Update</button>
