@@ -19,14 +19,13 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-            ...this.getInitialState(),
-            user: userService.getUser()
+            ...this.getInitialState()
         };
     }
 
     getInitialState() {
         return {
-            //events: []
+            user: userService.getUser()
         };
     }
 

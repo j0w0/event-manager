@@ -2,6 +2,20 @@ import React from 'react';
 import './EventEditForm.css';
 
 function EventEditForm(props) {
+
+    let sTime = props.event.startTime;
+    let eTime = props.event.endTime;
+
+    if(sTime) {
+        const sTd = new Date(sTime);
+        sTime = new Date(sTd.getTime() - sTd.getTimezoneOffset() * 60000).toISOString().slice(0,16);
+    }
+
+    if(eTime) {
+        const eTd = new Date(eTime);
+        eTime = new Date(eTd.getTime() - eTd.getTimezoneOffset() * 60000).toISOString().slice(0,16);
+    }
+
     return (
         <form onSubmit={props.handleSubmit}>
 
@@ -25,12 +39,49 @@ function EventEditForm(props) {
                 />
             </div>
 
+            <div className="form-group">
+                <label htmlFor="credits">Credits Required</label>
+                <input type="text" id="credits" className="form-control"
+                    name="credits"
+                    defaultValue={props.event.credits}
+                    onChange={props.handleInputChange}
+                    required
+                />
+            </div>
 
+            <div className="form-group">
+                <label htmlFor="startTime">Start Time</label>
+                <input type="datetime-local" id="startTime" className="form-control"
+                    name="startTime"
+                    defaultValue={sTime}
+                    onChange={props.handleInputChange}
+                    required
+                />
+            </div>
 
+            <div className="form-group">
+                <label htmlFor="endTime">End Time</label>
+                <input type="datetime-local" id="endTime" className="form-control"
+                    name="endTime"
+                    defaultValue={eTime}
+                    onChange={props.handleInputChange}
+                    required
+                />
+            </div>
 
+            <div className="form-group">
+                <label htmlFor="maxCapacity">Max Capacity</label>
+                <input type="text" id="maxCapacity" className="form-control"
+                    name="maxCapacity"
+                    defaultValue={props.event.maxCapacity}
+                    onChange={props.handleInputChange}
+                    required
+                />
+            </div>
 
-
-            
+            <div className="form-group">
+                <div id="google-address"></div>
+            </div>
 
             <button type="submit" className="btn btn-primary">Update</button>
 
