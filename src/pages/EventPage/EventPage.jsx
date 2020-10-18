@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './EventPage.css';
 import * as eventAPI from '../../services/events-api';
 import { Link } from 'react-router-dom';
+import Map from '../../components/Map/Map';
 
 function EventPage(props) {
 
@@ -24,13 +25,30 @@ function EventPage(props) {
     return (
         <div className='EventPage container py-3'>
 
-            <h1>Event Details</h1>
+            <h1>{event.name}</h1>
 
-            {event.name}
+            <p>
+                Start: {event.startTime}<br />
+                End: {event.endTime}
+            </p>
 
-            {event.user === props.user._id && (
+            <p>{event.description}</p>
+
+            <address>
+                {event.venueName}<br />
+                {event.address}<br />
+                {event.city}, {event.state} {event.zip}
+            </address>
+
+            {props.user && event.user !== props.user._id && (
+                <button type="button" className="btn btn-primary mb-3">Reserve Ticket</button>
+            )}
+
+            {props.user && event.user === props.user._id && (
                 <p><Link to={{ pathname: `/events/${event._id}/edit` }}>Edit</Link></p>
             )}
+
+            <Map lat={event.lat} lng={event.lng} />
             
         </div>
     );

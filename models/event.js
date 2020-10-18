@@ -32,6 +32,12 @@ const eventSchema = new Schema({
     zip: {
         type: String
     },
+    lat: {
+        type: Number
+    },
+    lng: {
+        type: Number
+    },
     maxCapacity: {
         type: Number
     },

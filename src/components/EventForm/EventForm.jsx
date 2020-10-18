@@ -31,7 +31,7 @@ function EventForm(props) {
             { types: ['geocode'] }
         );
 
-        autocomplete.setFields(["address_component"]);
+        autocomplete.setFields(["address_component", "geometry"]);
 
         autocomplete.addListener('place_changed', function() {
             const place = autocomplete.getPlace();
