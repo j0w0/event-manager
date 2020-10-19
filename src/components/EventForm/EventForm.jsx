@@ -1,9 +1,11 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import './EventForm.css';
 import Map from '../../components/Map/Map';
+import * as googleAPI from '../../services/google-autocomplete';
 
 function EventForm(props) {
-    const autocompleteField = useRef(null);
+    const autocompleteField = useRef();
+    const [fullAddress, setFullAddress] = useState({});
 
     let fullAddressStr, sTime, eTime;
 
@@ -27,6 +29,11 @@ function EventForm(props) {
     }
 
     useEffect(() => {
+        props.handleAutocomplete(fullAddress);
+        // eslint-disable-next-line
+    }, [ fullAddress ]);
+
+    useEffect(() => {
         const autocomplete = new window.google.maps.places.Autocomplete(
             autocompleteField.current,
             { types: ['geocode'] }
@@ -34,13 +41,13 @@ function EventForm(props) {
 
         autocomplete.setFields(["address_component", "geometry"]);
 
-        autocomplete.addListener('place_changed', function() {
+        new window.google.maps.event.addListener(autocomplete, 'place_changed', function() {
             const place = autocomplete.getPlace();
-            props.handleAutocomplete(place);
+            const updatedState = googleAPI.parseAutocomplete(place);
+            setFullAddress(updatedState);
         });
-        // eslint-disable-next-line
     }, []);
-
+    
     return (
         <form className="EventForm" onSubmit={props.handleSubmit} onKeyDown={props.onKeyDown} autoComplete="off">
 

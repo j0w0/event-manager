@@ -7,7 +7,7 @@ import * as googleAPI from '../../services/google-autocomplete';
 function EventEditPage(props) {
 
     // set initial state
-    const [event, setEvent] = useState({ event: props.event });
+    const [event, setEvent] = useState({});
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
@@ -34,10 +34,10 @@ function EventEditPage(props) {
     });
 
     // handle google address autocomplete field
-    const handleAutocomplete = async (place) => {
-        const updatedState = googleAPI.parseAutocomplete(place);
-        setEvent({ ...event, ...updatedState });
-    }
+    const handleAutocomplete = (updatedState) => setEvent({
+        ...event,
+        ...updatedState
+    });
 
     // prevent form submission when selecting address with 'enter' key
     const onKeyDown = (keyEvent) => googleAPI.keyDown(keyEvent);

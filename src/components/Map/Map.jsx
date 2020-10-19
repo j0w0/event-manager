@@ -3,7 +3,7 @@ import './Map.css';
 import { getCurrentLatLng } from '../../services/geolocation';
 
 function Map(props) {
-    const mapDiv = useRef(<div></div>);
+    const mapDiv = useRef();
 
     useEffect(() => {
         async function fetchData() {
@@ -28,10 +28,6 @@ function Map(props) {
             new window.google.maps.Marker({position: location, map: map});
         }
         fetchData();
-
-        return () => {
-            mapDiv.current = null;
-        }
     }, [props.lat, props.lng, props.zoom]);
 
     return (

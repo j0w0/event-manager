@@ -8,7 +8,7 @@ function EventAddPage(props) {
 
     // set initial state
     const [event, setEvent] = useState({
-        user: props.user._id
+        user: props.user._id,
     });
 
     // update state based on input values
@@ -18,10 +18,10 @@ function EventAddPage(props) {
     });
 
     // handle google address autocomplete field
-    const handleAutocomplete = async (place) => {
-        const updatedState = googleAPI.parseAutocomplete(place);
-        setEvent({ ...event, ...updatedState });
-    }
+    const handleAutocomplete = (updatedState) => setEvent({
+        ...event,
+        ...updatedState
+    });
 
     // prevent form submission when selecting address with 'enter' key
     const onKeyDown = (keyEvent) => googleAPI.keyDown(keyEvent);
