@@ -32,11 +32,13 @@ function EventsPage(props) {
             {isLoaded ? (
                 <>
                     <h1>EVNTZ</h1>
-                    { props.user && <p>This paragraph will show if you are logged in.</p> }
+
+                    { props.user && <Link to='events/new'>New Event</Link> }
 
                     <hr />
 
                     <h2>Events</h2>
+
                     {events.map((event, idx) => {
                         return (
                             <article key={idx}>

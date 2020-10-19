@@ -3,7 +3,7 @@ import './EventForm.css';
 import Map from '../../components/Map/Map';
 
 function EventForm(props) {
-    const autocompleteField = useRef();
+    const autocompleteField = useRef(null);
 
     let fullAddressStr, sTime, eTime;
 
@@ -38,7 +38,8 @@ function EventForm(props) {
             const place = autocomplete.getPlace();
             props.handleAutocomplete(place);
         });
-    });
+        // eslint-disable-next-line
+    }, []);
 
     return (
         <form className="EventForm" onSubmit={props.handleSubmit} onKeyDown={props.onKeyDown} autoComplete="off">

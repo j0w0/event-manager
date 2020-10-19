@@ -10,7 +10,7 @@ module.exports = {
 
 async function index(req, res) {
     try {
-        const events = await Event.find({});
+        const events = await Event.find({}).populate('attendees');
         if (!events) return res.status(401).json({err: 'No events'});
         res.status(200).json(events);
     } catch (err) {

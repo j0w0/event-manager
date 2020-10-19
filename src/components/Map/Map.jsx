@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import './Map.css';
 import { getCurrentLatLng } from '../../services/geolocation';
 
 function Map(props) {
-    const mapDiv = React.createRef();
+    const mapDiv = useRef(null);
 
     useEffect(() => {
         async function fetchData() {
@@ -28,10 +28,10 @@ function Map(props) {
             new window.google.maps.Marker({position: location, map: map});
         }
         fetchData();
-    }, [ mapDiv, props ]);
+    }, [props.lat, props.lng, props.zoom]);
 
     return (
-        <div ref={mapDiv} className="Map mb-3"></div>
+        <div ref={mapDiv} className="Map mb-3">Loading...</div>
     )
 }
 

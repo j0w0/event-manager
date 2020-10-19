@@ -25,7 +25,7 @@ function EventEditPage(props) {
             }
         }
         fetchData();
-    }, [ props.match.params.id, props.history, props.user._id ]);
+    }, [ props ]);
 
     // update state based on input values
     const handleInputChange = (e) => setEvent({
