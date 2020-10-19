@@ -1,12 +1,21 @@
 import React, { useEffect } from 'react';
 import './Map.css';
+import { getCurrentLatLng } from '../../services/geolocation';
 
 function Map(props) {
     const mapDiv = React.createRef();
 
     useEffect(() => {
-        if(props.lat && props.lng) {
-            const location = {lat: props.lat, lng: props.lng};
+        async function fetchData() {
+            let location;
+
+            if(props.lat && props.lng) {
+                location = {lat: props.lat, lng: props.lng};
+            } else {
+                let {lat, lng} = await getCurrentLatLng();
+                location = {lat, lng};
+            }
+
             const map = new window.google.maps.Map(
                 mapDiv.current, {
                     zoom: props.zoom || 14,
@@ -15,12 +24,14 @@ function Map(props) {
                     // styles: mapStyle
                 }
             );
+            
             new window.google.maps.Marker({position: location, map: map});
         }
-    }, [ mapDiv, props.lat, props.lng, props.zoom ]);
+        fetchData();
+    }, [ mapDiv, props ]);
 
     return (
-        <div ref={mapDiv} className="Map"></div>
+        <div ref={mapDiv} className="Map mb-3"></div>
     )
 }
 

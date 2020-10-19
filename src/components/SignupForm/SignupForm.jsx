@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import userService from '../../utils/userService';
 
 class SignupForm extends Component {
@@ -33,6 +32,11 @@ class SignupForm extends Component {
         return !(this.state.name && this.state.email && this.state.password === this.state.passwordConf);
     }
 
+    handleCancel = (e) => {
+        e.preventDefault();
+        this.props.history.goBack();
+    }
+
     render() {
         return (
             <form className="form-horizontal" onSubmit={this.handleSubmit}>
@@ -59,7 +63,7 @@ class SignupForm extends Component {
                 <div className="form-group">
                     <div className="col-sm-12 text-center">
                         <button className="btn btn-primary" disabled={this.isFormInvalid()}>Sign Up</button>
-                        <Link to='/' className='btn btn-link text-muted'>Cancel</Link>
+                        <button className='btn btn-link text-muted' onClick={this.handleCancel}>Cancel</button>
                     </div>
                 </div>
             </form>

@@ -3,8 +3,6 @@ import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-import HomePage from '../HomePage/HomePage';
-import CreditsPage from '../CreditsPage/CreditsPage';
 import EventsPage from '../EventsPage/EventsPage';
 import EventAddPage from '../EventAddPage/EventAddPage';
 import EventPage from '../EventPage/EventPage';
@@ -12,7 +10,6 @@ import EventEditPage from '../EventEditPage/EventEditPage';
 import MyEventsPage from '../MyEventsPage/MyEventsPage';
 import SignupPage from '../SignupPage/SignupPage';
 import LoginPage from '../LoginPage/LoginPage';
-import AdminPage from '../AdminPage/AdminPage';
 import userService from '../../utils/userService';
 
 class App extends Component {
@@ -54,19 +51,7 @@ class App extends Component {
                 <main>
                     <Switch>
                         <Route exact path='/' render={props =>
-                            <HomePage
-                                {...props}
-                                user={this.state.user}
-                            />
-                        }/>
-
-                        <Route exact path='/credits' render={props =>
-                            this.state.user ?
-                                <CreditsPage
-                                    {...props}
-                                    user={this.state.user}
-                                /> :
-                                <Redirect to ='/login' />
+                            <Redirect to='/events' />
                         }/>
 
                         <Route exact path='/events' render={props => 
@@ -104,15 +89,6 @@ class App extends Component {
                         <Route exact path='/my-events' render={props =>
                             this.state.user ?
                                 <MyEventsPage
-                                    {...props}
-                                    user={this.state.user}
-                                /> :
-                                <Redirect to='/login' />
-                        }/>
-
-                        <Route exact path='/admin' render={props => 
-                            this.state.user ?
-                                <AdminPage
                                     {...props}
                                     user={this.state.user}
                                 /> :

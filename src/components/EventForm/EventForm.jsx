@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import './EventForm.css';
+import Map from '../../components/Map/Map';
 
 function EventForm(props) {
     const autocompleteField = useRef();
@@ -62,7 +63,7 @@ function EventForm(props) {
                 />
             </div>
 
-            <div className="form-group">
+            {/* <div className="form-group">
                 <label htmlFor="credits">Credits Required</label>
                 <input type="text" id="credits" className="form-control"
                     name="credits"
@@ -70,7 +71,7 @@ function EventForm(props) {
                     onChange={props.handleInputChange}
                     required
                 />
-            </div>
+            </div> */}
 
             <div className="form-group">
                 <label htmlFor="startTime">Start Time</label>
@@ -122,6 +123,8 @@ function EventForm(props) {
                     required
                 />
             </div>
+
+            <Map lat={props.event && props.event.lat} lng={props.event && props.event.lng} />
 
             <button type="submit" className="btn btn-primary">{ props.event ? 'Update' : 'Create' }</button>
 

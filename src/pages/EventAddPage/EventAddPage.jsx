@@ -19,7 +19,7 @@ function EventAddPage(props) {
 
     // handle google address autocomplete field
     const handleAutocomplete = async (place) => {
-        const updatedState = await googleAPI.parseAutocomplete(place);
+        const updatedState = googleAPI.parseAutocomplete(place);
         setEvent({ ...event, ...updatedState });
     }
 
@@ -43,6 +43,7 @@ function EventAddPage(props) {
             <h1>New Event</h1>
             <EventForm
                 {...props}
+                event={event}
                 handleInputChange={handleInputChange}
                 handleSubmit={handleSubmit}
                 handleAutocomplete={handleAutocomplete}

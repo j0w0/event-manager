@@ -7,24 +7,25 @@ import * as googleAPI from '../../services/google-autocomplete';
 function EventEditPage(props) {
 
     // set initial state
-    const [event, setEvent] = useState({
-        event: props.event
-    });
+    const [event, setEvent] = useState({ event: props.event });
+    const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
-        // make call to back-end api to get event data
         async function fetchData() {
+            // make call to back-end api to get event data
             const results = await eventAPI.getOne(props.match.params.id);
-            setEvent(results);
 
-            // replace page if user does not 'own' this even / cannot edit
-            props.user._id !== results.user && props.history.replace('/');
+            if(props.user._id !== results.user || results.err) {
+                // replace history if not owner or if error getting data
+                props.history.replace('/');
+            } else {
+                // set state
+                setEvent(results);
+                setIsLoaded(true);
+            }
         }
         fetchData();
     }, [ props.match.params.id, props.history, props.user._id ]);
-
-    // replace page if error retrieving event data
-    if(event.err) props.history.replace('/');
 
     // update state based on input values
     const handleInputChange = (e) => setEvent({
@@ -34,7 +35,7 @@ function EventEditPage(props) {
 
     // handle google address autocomplete field
     const handleAutocomplete = async (place) => {
-        const updatedState = await googleAPI.parseAutocomplete(place);
+        const updatedState = googleAPI.parseAutocomplete(place);
         setEvent({ ...event, ...updatedState });
     }
 
@@ -55,15 +56,24 @@ function EventEditPage(props) {
 
     return (
         <div className='EventEditPage container py-3'>
-            <h1>Edit {event.name} Event</h1>
-            <EventForm
-                {...props}
-                event={event}
-                handleInputChange={handleInputChange}
-                handleSubmit={handleSubmit}
-                handleAutocomplete={handleAutocomplete}
-                onKeyDown={onKeyDown}
-            />
+
+            {isLoaded ? (
+                <>
+                    <h1>Edit {event.name} Event</h1>
+
+                    <EventForm
+                        {...props}
+                        event={event}
+                        handleInputChange={handleInputChange}
+                        handleSubmit={handleSubmit}
+                        handleAutocomplete={handleAutocomplete}
+                        onKeyDown={onKeyDown}
+                    />
+                </>
+            ) : (
+                <>Loading...</>
+            )}
+
         </div>
     );
 }
