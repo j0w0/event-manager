@@ -16,6 +16,7 @@ Create or find an event to attend. Save your spot by reserving a ticket.
 - HTML
 - CSS
 - Bootstrap
+- Google Maps + Places APIs
 - CRUD Operations
 
 ## Getting Started
