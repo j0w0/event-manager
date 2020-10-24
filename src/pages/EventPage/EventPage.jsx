@@ -3,6 +3,7 @@ import './EventPage.css';
 import { Link } from 'react-router-dom';
 import Map from '../../components/Map/Map';
 import * as eventAPI from '../../services/events-api';
+import * as dateUtils from '../../utils/date-utils';
 
 function EventPage(props) {
 
@@ -39,6 +40,24 @@ function EventPage(props) {
         props.history.push(`/events/${event._id}`);
     }
 
+    function eventDate() {
+        const startDateTime = new Date(event.startTime);
+        const endDateTime = new Date(event.endTime);
+
+        let isOneDay = false;
+        isOneDay = dateUtils.formatDate(startDateTime) === dateUtils.formatDate(endDateTime) && true;
+
+        if(isOneDay) {
+            const returnDate = dateUtils.formatDateLong(startDateTime);
+            const returnTime = `${dateUtils.formatTime(startDateTime)} - ${dateUtils.formatTime(endDateTime)}`;
+            return `${returnDate} / ${returnTime}`;
+        } else {
+            const startDate = dateUtils.fullDateTime(startDateTime);
+            const endDate = dateUtils.fullDateTime(endDateTime);
+            return `${startDate} - ${endDate}`;
+        }
+    }
+
     return (
 
         <div className='EventPage container py-3'>
@@ -47,15 +66,12 @@ function EventPage(props) {
                 <>
                     <h1>{event.name}</h1>
 
-                    <p>
-                        Start: {event.startTime}<br />
-                        End: {event.endTime}
-                    </p>
+                    <p>{eventDate()}</p>
 
                     <p>{event.description}</p>
 
                     <address>
-                        {event.venueName}<br />
+                        <strong>{event.venueName}</strong><br />
                         {event.address}<br />
                         {event.city}, {event.state} {event.zip}
                     </address>
