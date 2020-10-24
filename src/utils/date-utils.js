@@ -33,8 +33,8 @@ function formatDateLong(date) {
 
 function formatTime(date) {
     let hour = date.getHours();
-    const period = hour > 12 ? 'PM' : 'AM';
-    hour = hour > 12 ? hour - 12 : hour;
+    const period = hour > 11 ? 'PM' : 'AM';
+    hour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
     const mins = addZero(date.getMinutes());
     return `${hour}:${mins} ${period}`;
 }
