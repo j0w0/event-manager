@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './EventEditPage.css';
 import EventForm from '../../components/EventForm/EventForm';
+import PageHeader from '../../components/PageHeader/PageHeader';
 import * as eventAPI from '../../services/events-api';
 import * as googleAPI from '../../services/google-autocomplete';
 
@@ -69,25 +70,31 @@ function EventEditPage(props) {
     }
 
     return (
-        <div className='EventEditPage container py-3'>
+        <div className='EventEditPage'>
 
-            {isLoaded ? (
-                <>
-                    <h1>Edit {event.name} Event</h1>
+            <PageHeader />
 
-                    <EventForm
-                        {...props}
-                        event={event}
-                        handleInputChange={handleInputChange}
-                        handleSubmit={handleSubmit}
-                        handleAutocomplete={handleAutocomplete}
-                        onKeyDown={onKeyDown}
-                        handleImageUpload={handleImageUpload}
-                    />
-                </>
-            ) : (
-                <>Loading...</>
-            )}
+            <div className='container py-3'>
+                {isLoaded ? (
+                    <>
+                        <h1 className="event-name">
+                            <span>Edit {event.name} Event</span>
+                        </h1>
+
+                        <EventForm
+                            {...props}
+                            event={event}
+                            handleInputChange={handleInputChange}
+                            handleSubmit={handleSubmit}
+                            handleAutocomplete={handleAutocomplete}
+                            onKeyDown={onKeyDown}
+                            handleImageUpload={handleImageUpload}
+                        />
+                    </>
+                ) : (
+                    <>Loading...</>
+                )}
+            </div>
 
         </div>
     );

@@ -3,6 +3,7 @@ import './EventPage.css';
 import { Link } from 'react-router-dom';
 import Map from '../../components/Map/Map';
 import PageHeader from '../../components/PageHeader/PageHeader';
+import ImageUpload from '../../components/ImageUpload/ImageUpload';
 import * as eventAPI from '../../services/events-api';
 import * as dateUtils from '../../utils/date-utils';
 
@@ -27,7 +28,7 @@ function EventPage(props) {
             }
         }
         fetchData();
-    }, [ props.match.params.id, props.history ]);
+    }, [ props.match.params.id, props.history, event.image ]);
 
     const handleRSVP = async (e) => {
         // add this user to the attendees array
@@ -40,6 +41,22 @@ function EventPage(props) {
         // go to event page to see updated info
         props.history.push(`/events/${event._id}`);
     }
+
+    // const handleImageUpload = async (e) => {
+    //     // only run if image has been selected
+    //     if(e.target.files.length > 0) {
+    //         // upload image to aws s3
+    //         const img = await eventAPI.uploadImage(e.target.files);
+    //         event.image = img.path;
+    //         setEvent({...event});
+
+    //         // update db with new file image path
+    //         const updatedEvent = await eventAPI.update(event)
+    //         setEvent(updatedEvent);
+
+    //         //props.history.replace(`/events/${event._id}`);
+    //     }
+    // }
 
     return (
 
@@ -80,7 +97,13 @@ function EventPage(props) {
                                     {props.user ? (
 
                                         event.user === props.user._id ? (
-                                            <p><Link to={{ pathname: `/events/${event._id}/edit` }}>Edit</Link></p>
+                                            <>
+                                                <hr />
+                                                <h5>Admin</h5>
+                                                <p>As the event creator, you can edit the event details and image.</p>
+                                                <p><Link to={{ pathname: `/events/${event._id}/edit` }}>Edit Event Details</Link></p>
+                                                <ImageUpload event={event} setEvent={setEvent} />
+                                            </>
                                         ) : (
                                             <>
                                                 {event.attendees.includes(props.user._id) ? (

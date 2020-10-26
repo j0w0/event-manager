@@ -2,7 +2,6 @@ import React, { useRef, useEffect, useState } from 'react';
 import './EventForm.css';
 import Map from '../../components/Map/Map';
 import * as googleAPI from '../../services/google-autocomplete';
-import ImageUpload from '../ImageUpload/ImageUpload';
 
 function EventForm(props) {
     const autocompleteField = useRef();
@@ -104,10 +103,6 @@ function EventForm(props) {
                         />
                     </div>
 
-                    {!props.isNew && (
-                        <ImageUpload handleImageUpload={props.handleImageUpload} />
-                    )}
-
                     <div className="form-group">
                         <label htmlFor="venueName">Venue Name</label>
                         <input type="text" id="venueName" className="form-control"
@@ -136,7 +131,7 @@ function EventForm(props) {
             </div>
 
             <button type="submit" className="btn btn-primary">{ props.isNew ? 'Create' : 'Update' }</button>
-
+            
         </form>
     );
 }
