@@ -8,6 +8,9 @@ const eventSchema = new Schema({
     description: {
         type: String
     },
+    image: {
+        type: String
+    },
     credits: {
         type: Number
     },

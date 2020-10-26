@@ -70,6 +70,8 @@ function EventPage(props) {
 
                     <p>{event.description}</p>
 
+                    <img src={event.image} alt="" className="img-fluid w-100" />
+
                     <address>
                         <strong>{event.venueName}</strong><br />
                         {event.address}<br />

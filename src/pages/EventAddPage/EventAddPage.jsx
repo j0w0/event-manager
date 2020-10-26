@@ -48,6 +48,7 @@ function EventAddPage(props) {
                 handleSubmit={handleSubmit}
                 handleAutocomplete={handleAutocomplete}
                 onKeyDown={onKeyDown}
+                isNew={true}
             />
         </div>
     );

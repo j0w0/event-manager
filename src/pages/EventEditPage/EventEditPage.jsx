@@ -42,6 +42,20 @@ function EventEditPage(props) {
     // prevent form submission when selecting address with 'enter' key
     const onKeyDown = (keyEvent) => googleAPI.keyDown(keyEvent);
 
+    const handleImageUpload = async (e) => {
+        // upload image to aws s3
+        const img = await eventAPI.uploadImage(e.target.files);
+        event.image = img.path;
+        setEvent({...event});
+
+        // update db with new file image path
+        const updatedEvent = await eventAPI.update(event)
+        setEvent(updatedEvent);
+
+        // go to event page to see updated info
+        props.history.push(`/events/${event._id}`);
+    }
+
     // handle form submit
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -68,6 +82,7 @@ function EventEditPage(props) {
                         handleSubmit={handleSubmit}
                         handleAutocomplete={handleAutocomplete}
                         onKeyDown={onKeyDown}
+                        handleImageUpload={handleImageUpload}
                     />
                 </>
             ) : (

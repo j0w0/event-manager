@@ -40,3 +40,16 @@ export async function deleteOne(id) {
         }
     }).then(res => res.json());
 }
+
+export async function uploadImage(files) {
+    const formData = new FormData();
+    formData.append('event-image', files[0], files[0].name);
+
+    return fetch(`${BASE_URL}/upload-image`, {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + tokenService.getToken()
+        },
+        body: formData
+    }).then(res => res.json());
+}

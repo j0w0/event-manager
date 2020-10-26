@@ -1,11 +1,13 @@
 const Event = require('../../models/event');
+const { uploadToAws } = require('../../utils/aws-s3');
 
 module.exports = {
     index,
     create,
     show,
     update,
-    delete: deleteOne
+    delete: deleteOne,
+    uploadImage
 };
 
 async function index(req, res) {
@@ -53,6 +55,17 @@ async function deleteOne(req, res) {
     try {
         const deletedEvent = await Event.findByIdAndRemove(req.params.id);
         res.status(200).json(deletedEvent);
+    } catch(err) {
+        res.status(400).json({err});
+    }
+}
+
+async function uploadImage(req, res) {
+    try {
+        uploadToAws(req, res)
+        .then(() => {
+            res.status(201).json({path: req.file.location});
+        });
     } catch(err) {
         res.status(400).json({err});
     }
