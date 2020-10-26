@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Map from '../../components/Map/Map';
 import * as eventAPI from '../../services/events-api';
 import * as dateUtils from '../../utils/date-utils';
+import PageHeader from '../../components/PageHeader/PageHeader';
 
 function EventPage(props) {
 
@@ -60,59 +61,81 @@ function EventPage(props) {
 
     return (
 
-        <div className='EventPage container py-3'>
+        <div className='EventPage'>
 
-            {isLoaded ? (
-                <>
-                    <h1>{event.name}</h1>
+            <PageHeader />
 
-                    <p>{eventDate()}</p>
+            <div className='container py-3'>
 
-                    <p>{event.description}</p>
+                {isLoaded ? (
+                    <>
+                        <h1 className="event-name">
+                            <span>{event.name}</span>
+                        </h1>
 
-                    <img src={event.image} alt="" className="img-fluid w-100" />
+                        <div className="row">
 
-                    <address>
-                        <strong>{event.venueName}</strong><br />
-                        {event.address}<br />
-                        {event.city}, {event.state} {event.zip}
-                    </address>
+                            <div className="col-lg-8">
+                                <img src={event.image} alt={event.name} className="img-fluid w-100 mb-4" />
+                                <p>{event.description}</p>
+                            </div>
 
-                    {props.user ? (
+                            <div className="col-lg-4">
+                                <div className="">
+                                    <p>
+                                        <strong>Date</strong><br />
+                                        {eventDate()}
+                                    </p>
 
-                        event.user === props.user._id ? (
-                            <p><Link to={{ pathname: `/events/${event._id}/edit` }}>Edit</Link></p>
-                        ) : (
-                            <>
-                                {event.attendees.includes(props.user._id) ? (
-                                    <p className="font-weight-bold text-success">Awesome! You have a ticket to this event!</p>
-                                ) : (
-                                    event.maxCapacity - event.attendees.length < 10 && (
-                                        <p className="font-weight-bold text-danger">Hurry! Only {event.maxCapacity - event.attendees.length} tickets left!</p>
-                                    )
-                                )}
+                                    <address>
+                                        <strong>{event.venueName}</strong><br />
+                                        {event.address}<br />
+                                        {event.city}, {event.state} {event.zip}
+                                    </address>
 
-                                <button
-                                    type="button"
-                                    className="btn btn-primary mb-3"
-                                    onClick={ handleRSVP }
-                                    disabled={ event.attendees.includes(props.user._id) }
-                                >
-                                    { event.attendees.includes(props.user._id) ? `Ticket Reserved` : `Reserve Ticket` }
-                                </button>
-                            </>
-                        )
+                                    <Map lat={event.lat} lng={event.lng} />
 
-                    ) : (
-                        <Link to="/login" className="btn btn-primary mb-3">Log in to reserve your ticket</Link>
-                    )}
+                                    {props.user ? (
 
-                    <Map lat={event.lat} lng={event.lng} />
-                </>
-            ) : (
-                <>Loading...</>
-            )}
-            
+                                        event.user === props.user._id ? (
+                                            <p><Link to={{ pathname: `/events/${event._id}/edit` }}>Edit</Link></p>
+                                        ) : (
+                                            <>
+                                                {event.attendees.includes(props.user._id) ? (
+                                                    <p className="font-weight-bold text-success">Awesome! You have a ticket to this event!</p>
+                                                ) : (
+                                                    event.maxCapacity - event.attendees.length < 10 && (
+                                                        <p className="font-weight-bold text-danger">Hurry! Only {event.maxCapacity - event.attendees.length} tickets left!</p>
+                                                    )
+                                                )}
+
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-primary mb-3"
+                                                    onClick={ handleRSVP }
+                                                    disabled={ event.attendees.includes(props.user._id) }
+                                                >
+                                                    { event.attendees.includes(props.user._id) ? `Ticket Reserved` : `Reserve Ticket` }
+                                                </button>
+                                            </>
+                                        )
+
+                                    ) : (
+                                        <Link to="/login" className="btn btn-primary mb-3">Log in to reserve your ticket</Link>
+                                    )}
+                                </div>
+                            </div>
+
+                            
+
+                        </div>
+                    </>
+                ) : (
+                    <p>Loading...</p>
+                )}
+                
+            </div>
+
         </div>
     );
 } 
