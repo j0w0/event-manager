@@ -4,7 +4,21 @@ Create or find an event to attend. Save your spot by reserving a ticket.
 
 ## Screenshots
 
-<img src='https://i.imgur.com/xrMVke6.png' width='100%'>
+<img src='https://i.imgur.com/mOC8lRz.png' width='100%'>
+
+*EVNTZ home page (public)*
+
+<img src='https://i.imgur.com/BSSpQPG.png' width='100%'>
+
+*Event details (public)*
+
+<img src='https://i.imgur.com/xL6fmTs.png' width='100%'>
+
+*Event details (creator's view) with AWS S3 image upload*
+
+<img src='https://i.imgur.com/dCaUdxX.png' width='100%'>
+
+*Edit/update event (only accessible by creator) with Google Places + Maps API*
 
 ## Technologies Used
 
@@ -16,13 +30,14 @@ Create or find an event to attend. Save your spot by reserving a ticket.
 - HTML
 - CSS
 - Bootstrap
-- Google Maps + Places APIs
+- Google Maps API
+- Google Places API
+- AWS S3 (for image uploads)
 - CRUD Operations
 
 ## Getting Started
 
 - Check out the [Demo](https://j0w0-events.herokuapp.com/) on Heroku
-- [Trello planning](https://trello.com/b/PJPmRbKX/project-4)
 
 ## Next Steps
 
