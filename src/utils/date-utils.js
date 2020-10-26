@@ -45,9 +45,28 @@ function fullDateTime(date) {
     return `${dateFormatted} ${timeFormatted}`;
 }
 
+function eventDate(start, end) {
+    const startDateTime = new Date(start);
+    const endDateTime = new Date(end);
+
+    let isOneDay = false;
+    isOneDay = formatDate(startDateTime) === formatDate(endDateTime) && true;
+
+    if(isOneDay) {
+        const returnDate = formatDateLong(startDateTime);
+        const returnTime = `${formatTime(startDateTime)} - ${formatTime(endDateTime)}`;
+        return `${returnDate} / ${returnTime}`;
+    } else {
+        const startDate = fullDateTime(startDateTime);
+        const endDate = fullDateTime(endDateTime);
+        return `${startDate} - ${endDate}`;
+    }
+}
+
 module.exports = {
     formatDate,
     formatDateLong,
     formatTime,
-    fullDateTime
+    fullDateTime,
+    eventDate
 }

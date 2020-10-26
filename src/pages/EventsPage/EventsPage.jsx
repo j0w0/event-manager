@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './EventsPage.css';
 import { Link } from 'react-router-dom';
+import PageHeader from '../../components/PageHeader/PageHeader';
+import EventCard from '../../components/EventCard/EventCard';
 import * as eventAPI from '../../services/events-api';
 
 function EventsPage(props) {
@@ -27,31 +29,33 @@ function EventsPage(props) {
     }, [ props.history ]);
 
     return (
-        <div className='EventsPage container py-3'>
+        <div className='EventsPage'>
 
-            {isLoaded ? (
-                <>
-                    <h1>EVNTZ</h1>
+            <PageHeader />
 
-                    { props.user && <Link to='events/new'>New Event</Link> }
+            <div className='container py-3'>
+                {isLoaded ? (
+                    <>
+                        <h1 className="event-name">
+                            <span>EVNTZ</span>
+                        </h1>
 
-                    <hr />
+                        { props.user && <p><Link to='events/new'>New Event</Link></p> }
 
-                    <h2>Events</h2>
-
-                    {events.map((event, idx) => {
-                        return (
-                            <article key={idx}>
-                                <h4>{event.name}</h4>
-                                <p>{event.description}</p>
-                                <Link to={{ pathname: `/events/${event._id}` }}>Read More</Link>
-                            </article>
-                        );
-                    })}
-                </>
-            ) : (
-                <>Loading...</>
-            )}
+                        <div className="row">
+                            {events.map((event, idx) => {
+                                return (
+                                    <div className="col-md-6 col-lg-4">
+                                        <EventCard event={event} idx={idx} />
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </>
+                ) : (
+                    <p>Loading...</p>
+                )}
+            </div>
 
         </div>
     );

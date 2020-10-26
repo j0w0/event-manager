@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import './EventPage.css';
 import { Link } from 'react-router-dom';
 import Map from '../../components/Map/Map';
+import PageHeader from '../../components/PageHeader/PageHeader';
 import * as eventAPI from '../../services/events-api';
 import * as dateUtils from '../../utils/date-utils';
-import PageHeader from '../../components/PageHeader/PageHeader';
 
 function EventPage(props) {
 
@@ -41,24 +41,6 @@ function EventPage(props) {
         props.history.push(`/events/${event._id}`);
     }
 
-    function eventDate() {
-        const startDateTime = new Date(event.startTime);
-        const endDateTime = new Date(event.endTime);
-
-        let isOneDay = false;
-        isOneDay = dateUtils.formatDate(startDateTime) === dateUtils.formatDate(endDateTime) && true;
-
-        if(isOneDay) {
-            const returnDate = dateUtils.formatDateLong(startDateTime);
-            const returnTime = `${dateUtils.formatTime(startDateTime)} - ${dateUtils.formatTime(endDateTime)}`;
-            return `${returnDate} / ${returnTime}`;
-        } else {
-            const startDate = dateUtils.fullDateTime(startDateTime);
-            const endDate = dateUtils.fullDateTime(endDateTime);
-            return `${startDate} - ${endDate}`;
-        }
-    }
-
     return (
 
         <div className='EventPage'>
@@ -84,7 +66,7 @@ function EventPage(props) {
                                 <div className="">
                                     <p>
                                         <strong>Date</strong><br />
-                                        {eventDate()}
+                                        {dateUtils.eventDate(event.startTime, event.endTime)}
                                     </p>
 
                                     <address>
@@ -125,8 +107,6 @@ function EventPage(props) {
                                     )}
                                 </div>
                             </div>
-
-                            
 
                         </div>
                     </>
