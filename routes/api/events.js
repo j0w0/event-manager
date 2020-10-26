@@ -11,6 +11,6 @@ router.get('/:id', eventsCtrl.show); // single event
 router.post('/', checkAuth, eventsCtrl.create); // create event
 router.put('/:id', checkAuth, eventsCtrl.update); // update event
 router.delete('/:id', checkAuth, eventsCtrl.delete); // delete event
-router.post('/upload-image', eventsCtrl.uploadImage); // image upload
+router.post('/upload-image', checkAuth, eventsCtrl.uploadImage); // image upload
 
 module.exports = router;
