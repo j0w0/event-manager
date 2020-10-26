@@ -42,22 +42,6 @@ function EventPage(props) {
         props.history.push(`/events/${event._id}`);
     }
 
-    // const handleImageUpload = async (e) => {
-    //     // only run if image has been selected
-    //     if(e.target.files.length > 0) {
-    //         // upload image to aws s3
-    //         const img = await eventAPI.uploadImage(e.target.files);
-    //         event.image = img.path;
-    //         setEvent({...event});
-
-    //         // update db with new file image path
-    //         const updatedEvent = await eventAPI.update(event)
-    //         setEvent(updatedEvent);
-
-    //         //props.history.replace(`/events/${event._id}`);
-    //     }
-    // }
-
     return (
 
         <div className='EventPage'>
