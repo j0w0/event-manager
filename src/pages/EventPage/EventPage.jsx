@@ -59,7 +59,9 @@ function EventPage(props) {
                         <div className="row">
 
                             <div className="col-lg-8">
-                                <img src={event.image} alt={event.name} className="img-fluid w-100 mb-4" />
+                                {event.image && (
+                                    <img src={event.image} alt={event.name} className="img-fluid w-100 mb-4" />
+                                )}
                                 <p>{event.description}</p>
                             </div>
 
@@ -82,7 +84,6 @@ function EventPage(props) {
 
                                         event.user === props.user._id ? (
                                             <>
-                                                <hr />
                                                 <h5>Admin</h5>
                                                 <p>As the event creator, you can edit the event details and image.</p>
                                                 <p><Link to={{ pathname: `/events/${event._id}/edit` }}>Edit Event Details</Link></p>

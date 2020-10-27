@@ -12,7 +12,12 @@ module.exports = {
 
 async function index(req, res) {
     try {
-        const events = await Event.find({}).populate('attendees');
+        // query for events that have not passed
+        // sort by start time
+        const events = await Event.find({
+            endTime: { $gte: new Date() }
+        }).populate('attendees').sort('startTime');
+
         if (!events) return res.status(401).json({err: 'No events'});
         res.status(200).json(events);
     } catch (err) {

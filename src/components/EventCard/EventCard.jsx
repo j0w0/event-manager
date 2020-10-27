@@ -5,9 +5,9 @@ import * as dateUtils from '../../utils/date-utils';
 
 function EventCard(props) {
     return (
-        <div className="card" key={props.idx}>
-
-            <img src={props.event.image} alt={props.event.name} className="card-img-top" />
+        <div className="card mb-3" key={props.idx}>
+            
+            <img src={props.event.image ? props.event.image : 'https://i.imgur.com/qHdfdgh.jpg'} alt={props.event.name} className="card-img-top" />
 
             <div className="card-body">
                 <h5 className="card-title">{props.event.name}</h5>
