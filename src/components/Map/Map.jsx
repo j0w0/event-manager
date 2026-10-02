@@ -26,15 +26,21 @@ function Map(props) {
     }, [props.lat, props.lng]);
     
     useEffect(() => {
-        const map = new window.google.maps.Map(
-            mapDiv.current, {
-                zoom: props.zoom || 14,
-                center: location,
-                disableDefaultUI: true,
-                // styles: mapStyle
-            }
-        );
-        new window.google.maps.Marker({position: location, map: map});
+        async function initMap() {
+            const { Map } = await window.google.maps.importLibrary('maps');
+            const { Marker } = await window.google.maps.importLibrary('marker');
+            if(!mapDiv.current) return;
+            const map = new Map(
+                mapDiv.current, {
+                    zoom: props.zoom || 14,
+                    center: location,
+                    disableDefaultUI: true,
+                    // styles: mapStyle
+                }
+            );
+            new Marker({position: location, map: map});
+        }
+        initMap();
     }, [props.zoom, location]);
 
     return (

@@ -34,18 +34,23 @@ function EventForm(props) {
     }, [ fullAddress ]);
 
     useEffect(() => {
-        const autocomplete = new window.google.maps.places.Autocomplete(
-            autocompleteField.current,
-            { types: ['geocode'] }
-        );
+        async function initAutocomplete() {
+            const { Autocomplete } = await window.google.maps.importLibrary('places');
+            if(!autocompleteField.current) return;
+            const autocomplete = new Autocomplete(
+                autocompleteField.current,
+                { types: ['geocode'] }
+            );
 
-        autocomplete.setFields(["address_component", "geometry"]);
+            autocomplete.setFields(["address_component", "geometry"]);
 
-        new window.google.maps.event.addListener(autocomplete, 'place_changed', function() {
-            const place = autocomplete.getPlace();
-            const updatedState = googleAPI.parseAutocomplete(place);
-            setFullAddress(updatedState);
-        });
+            autocomplete.addListener('place_changed', function() {
+                const place = autocomplete.getPlace();
+                const updatedState = googleAPI.parseAutocomplete(place);
+                setFullAddress(updatedState);
+            });
+        }
+        initAutocomplete();
     }, []);
     
     return (
